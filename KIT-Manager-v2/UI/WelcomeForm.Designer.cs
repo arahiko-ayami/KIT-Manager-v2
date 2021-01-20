@@ -1,4 +1,4 @@
-﻿namespace Project_KIT_Manager.UI
+﻿namespace KIT_Manager_v2.UI
 {
     partial class WelcomeForm
     {

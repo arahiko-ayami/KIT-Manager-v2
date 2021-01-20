@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,6 +14,8 @@ namespace KIT_Manager_v2.UI
 {
     public partial class MemberManageForm : Form
     {
+        #region Variables
+        
         private readonly string _windowName = Program.ApplicationName + " - Quản Lí Thành Viên";
         private String _oldId;
         private String _oldName;
@@ -20,112 +24,99 @@ namespace KIT_Manager_v2.UI
         private int _pagesInt;
         private int _totalPages;
         private int _displayedRecordsNumber;
-        private int recordNumber;
+        private int _recordNumber;
+        private readonly int _take = 22;
+        private List<Student> StudentsList;
+        
+        #endregion
 
         public MemberManageForm()
         {
             InitializeComponent();
             this.Text = _windowName;
             comboBoxFilterClass.Enabled = false;
-            using (KitDataContext db = new KitDataContext())
-            {
-                recordNumber = db.Students.Count();
-                labelQty.Text = "KIT hiện tại có " + recordNumber + " thành viên";
-                _displayedRecordsNumber = recordNumber < 22 ? recordNumber : 22;
-                _pagesDouble = recordNumber / 22.0;
-                _pagesInt = recordNumber / 22;
-                _totalPages = _pagesDouble > _pagesInt ? _pagesInt + 1 : _pagesInt;
-                LoadData(db);
-            }
+            LoadData(0,_take);
         }
 
         //My custom methods
 
         #region MyCustomMethods
 
-        private void LoadDataGridView(KitDataContext db)
+        private void LoadDataGridView(List<Student> StudentsList, int skip, int take)
         {
-            var result = db.Students.Take(22).Select(s => new
-            {
-                s.Id,
-                s.Name,
-                s.Contact.PhoneNumber,
-                s.Class,
-                s.Gender,
-                s.DateOfBirth,
-                s.Contact.Email
-            });
+            var result = 
+                StudentsList
+                .OrderBy(s=>s.Id)
+                .Skip(skip)
+                .Take(take)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.Name,
+                    s.Contact.PhoneNumber,
+                    s.Class,
+                    s.Gender,
+                    s.DateOfBirth,
+                    s.Contact.Email
+                });
                 
             dataGridView.DataSource = result.ToList();
             dataGridView.Refresh();
             dataGridView.ClearSelection();
             dataGridView.Columns[5].DefaultCellStyle.Format = "dd/MM/yyyy";
         }
-        private void LoadData(KitDataContext db)     //Get data from database
-        {
-            try
-            {
-                //Count number of records on database
-                recordNumber = db.Students.Count();
-                labelQty.Text = "KIT hiện tại có " + recordNumber + " thành viên";
-                textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
-                //Load DataGridView
-                LoadDataGridView(db);
-
-                //Resize columns
-                ResizeColumn();
-
-                //Load ComboBox
-                LoadComboBox(db);
-
-                //Get today's date
-                dateTimePicker.MaxDate = DateTime.Today;
-
-                //Clear Textboxes
-                ClearBoxes();
-                
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
         
-        private void ReloadData()     //Get data from database
+        private void LoadData(int skip, int take)     //Get data from database
         {
-            try
+            using (KitDataContext db = new KitDataContext())
             {
-                
-                using (KitDataContext db = new KitDataContext())
+                try
                 {
-                    //Count number of records on database
-                    recordNumber = db.Students.Count();
-                    labelQty.Text = "KIT hiện tại có " + recordNumber + " thành viên";
-                    double pagesDouble = db.Students.Count() / 22;
-                    int pagesInt = db.Students.Count() / 22;
-                    textBoxPageNum.Text = _currPageNumber + "/" + Convert.ToString(pagesDouble > pagesInt ? pagesInt+1 : pagesInt);
+                    //Load data from database to local
+                    db.Students.Load();
+                    StudentsList = db.Students.Local.ToList();
+                    
+                    //Get number of pages
+                    textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
+                    
                     //Load DataGridView
-                    LoadDataGridView(db);
-            
+                    LoadDataGridView(StudentsList, skip, take);
+
                     //Resize columns
                     ResizeColumn();
 
                     //Load ComboBox
-                    LoadComboBox(db);
+                    LoadComboBox();
 
                     //Get today's date
                     dateTimePicker.MaxDate = DateTime.Today;
 
                     //Clear Textboxes
                     ClearBoxes();
+                
+                    //Split Pages
+                    SplitPages();
+                    textBoxPageNum.Text = 1 + "/" + _totalPages;
+
                 }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
 
+        private void SplitPages()
+        {
+            _recordNumber = StudentsList.Count(); /*db.Database.ExecuteSqlCommand("select count(Id) from Students");*/
+            labelQty.Text = "KIT hiện tại có " + _recordNumber + " thành viên";
+            _displayedRecordsNumber = _recordNumber < _take ? _recordNumber : _take;
+            _pagesDouble = _recordNumber / Convert.ToDouble(_take);
+            _pagesInt = _recordNumber / _take;
+            _totalPages = _pagesDouble > _pagesInt ? _pagesInt + 1 : _pagesInt;
+            textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
+        }
+        
         private void ResizeColumn(){
             for (int i = 0; i < 6; i++)
             {
@@ -134,28 +125,22 @@ namespace KIT_Manager_v2.UI
             
             dataGridView.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
-        private void LoadComboBox(KitDataContext db)     //Get data from database to class combobox
+        private void LoadComboBox()     //Get data from database to class combobox
         {
-            try
-            {
-                var result =
-                    from s in db.Students
+            var result =
+                    from s in StudentsList
                     group s by s.Class;
 
-                List<string> cl = new List<string>();
+            List<string> cl = new List<string>();
 
-                foreach (var data in result)
-                {
-                    cl.Add(data.Key);
-                }
-
-                comboBoxFilterClass.DataSource = cl;
-            }
-            catch (Exception e)
+            foreach (var data in result)
             {
-                MessageBox.Show(e.Message);
+                cl.Add(data.Key);
             }
-        }
+
+            comboBoxFilterClass.DataSource = cl;
+            
+    }
 
         private void ClearBoxes()
         {
@@ -191,23 +176,20 @@ namespace KIT_Manager_v2.UI
 
         private void QueryByClass()
         {
-            using (KitDataContext db = new KitDataContext())
-            {
-                var result = db.Students
-                    .Where(s => String.Compare(s.Class, comboBoxFilterClass.SelectedItem.ToString(), StringComparison.Ordinal)==0)
-                    .Select(s => new
-                    {
-                        s.Id,
-                        s.Name,
-                        s.Contact.PhoneNumber,
-                        s.Class,
-                        s.Gender,
-                        s.DateOfBirth,
-                        s.Contact.Email
-                    });
+            var result = StudentsList
+                .Where(s => String.Compare(s.Class, comboBoxFilterClass.SelectedItem.ToString(), StringComparison.Ordinal)==0)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.Name,
+                    s.Contact.PhoneNumber,
+                    s.Class,
+                    s.Gender,
+                    s.DateOfBirth,
+                    s.Contact.Email
+                });
 
-                dataGridView.DataSource = result.ToList();
-            }
+            dataGridView.DataSource = result.ToList();
         }
 
         private void AddData()
@@ -234,8 +216,8 @@ namespace KIT_Manager_v2.UI
 
                         db.Students.Add(newMember);
                         db.SaveChanges();
-                        ReloadData();
                     }
+                    LoadData(0,_take);
                 }
             }
             catch (Exception e)
@@ -246,21 +228,28 @@ namespace KIT_Manager_v2.UI
 
         private void Delete(String id)
         {
-            using (KitDataContext db = new KitDataContext())
+            try
             {
-                var result =
-                    from s in db.Students
-                    where s.Id == id
-                    select s;
-
-                var deleteItems = result.ToList();
-
-                foreach (var deleteItem in deleteItems)
+                using (KitDataContext db = new KitDataContext())
                 {
-                    db.Students.Remove(deleteItem);
-                }
+                    var result =
+                        from s in db.Students
+                        where s.Id == id
+                        select s;
 
-                db.SaveChanges();
+                    var deleteItems = result.ToList();
+
+                    foreach (var deleteItem in deleteItems)
+                    {
+                        db.Students.Remove(deleteItem);
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -306,14 +295,7 @@ namespace KIT_Manager_v2.UI
         #region Event
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            try
-            {
-                AddData();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
+            AddData();
         }
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -359,7 +341,7 @@ namespace KIT_Manager_v2.UI
             DialogResult confirm = DialogResult.None;
             if (!textBoxID.Text.Equals(string.Empty))
                 confirm = MessageBox.Show("Bạn có muốn xoá " + textBoxName.Text + " không?", "Bạn có chắc chắn?",
-                MessageBoxButtons.YesNo);
+                    MessageBoxButtons.YesNo);
 
             if (confirm == DialogResult.Yes)
             {
@@ -372,7 +354,7 @@ namespace KIT_Manager_v2.UI
                     }
                     Delete(id);
                     MessageBox.Show("Xoá thành công!", Program.ApplicationName);
-                    ReloadData();
+                    LoadData(0,_take);
                 }
                 catch (Exception exception)
                 {
@@ -383,7 +365,7 @@ namespace KIT_Manager_v2.UI
 
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
-            ReloadData();
+            LoadData(0,_take);
         }
 
         private void textBoxSearchByName_TextChanged(object sender, EventArgs e)
@@ -427,37 +409,30 @@ namespace KIT_Manager_v2.UI
             else
             {
                 comboBoxFilterClass.Enabled = false;
-                ReloadData();
+                LoadDataGridView(StudentsList,0,_take);
             }
         }
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            try
-            {
-                String newInfo = "Thông tin sẽ được sửa thành:"
-                                 + "\nMã Sinh Viên: " + textBoxID.Text
-                                 + "\nHọ tên: " + textBoxName.Text
-                                 + "\nGiới Tính: " + SetGender()
-                                 + "\nNgày Sinh: " + dateTimePicker.Value.ToString("dd/MM/yyyy")
-                                 + "\nLớp: " + textBoxClass.Text
-                                 + "\nSố Điện Thoại: " + textBoxPhoneNum.Text
-                                 + "\nGhi Chú: " + textBoxEmail.Text;
+            String newInfo = "Thông tin sẽ được sửa thành:"
+                             + "\nMã Sinh Viên: " + textBoxID.Text
+                             + "\nHọ tên: " + textBoxName.Text
+                             + "\nGiới Tính: " + SetGender()
+                             + "\nNgày Sinh: " + dateTimePicker.Value.ToString("dd/MM/yyyy")
+                             + "\nLớp: " + textBoxClass.Text
+                             + "\nSố Điện Thoại: " + textBoxPhoneNum.Text
+                             + "\nGhi Chú: " + textBoxEmail.Text;
 
-                DialogResult confirm = DialogResult.None;
-                if (!textBoxID.Text.Equals(string.Empty))
-                    confirm = MessageBox.Show("Bạn có muốn thay đổi " + _oldName + " không?" + "\n" + newInfo,
-                        "Bạn có chắc chắn?",
-                        MessageBoxButtons.YesNo);
+            DialogResult confirm = DialogResult.None;
+            if (!textBoxID.Text.Equals(string.Empty))
+                confirm = MessageBox.Show("Bạn có muốn thay đổi " + _oldName + " không?" + "\n" + newInfo,
+                    "Bạn có chắc chắn?",
+                    MessageBoxButtons.YesNo);
 
-                if (confirm == DialogResult.Yes)
-                {
-                    Modify();
-                }
-            }
-            catch (Exception exception)
+            if (confirm == DialogResult.Yes)
             {
-                MessageBox.Show(exception.Message);
+                Modify();
             }
         }
 
@@ -479,160 +454,64 @@ namespace KIT_Manager_v2.UI
         //Events of Arrow Buttons
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            try
+            if (_currPageNumber < _totalPages)
             {
-                using (KitDataContext db = new KitDataContext())
-                {
-                    if (_currPageNumber < _totalPages)
-                    {
-                        //Count number of records on database
-                        _currPageNumber++;
-                        textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
-                        //Load DataGridView
-                        var result = db.Students
-                            .OrderBy(s => s.Id).Skip(_displayedRecordsNumber)
-                            .Take(22)
-                            .Select(s => new
-                            {
-                                s.Id,
-                                s.Name,
-                                s.Contact.PhoneNumber,
-                                s.Class,
-                                s.Gender,
-                                s.DateOfBirth,
-                                s.Contact.Email
-                            });
-
-                        dataGridView.DataSource = result.ToList();
-                        dataGridView.ClearSelection();
-                        dataGridView.Columns[5].DefaultCellStyle.Format = "dd/MM/yyyy";
-                        _displayedRecordsNumber += 22;
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
+                //Count number of records on database
+                _currPageNumber++;
+                textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
+                //Load DataGridView
+                LoadDataGridView(StudentsList,_displayedRecordsNumber,_take);
+                _displayedRecordsNumber += _take;
             }
         }
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
-            try
+            if (_currPageNumber > 1 && _currPageNumber < _totalPages)
             {
-                using (KitDataContext db = new KitDataContext())
-                {
-                    if (_currPageNumber > 1 && _currPageNumber < _totalPages)
-                    {
-                        //Count number of records on database
-                        _currPageNumber--;
-                        textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
-                        //Load DataGridView
-                        var result = db.Students
-                            .OrderBy(s => s.Id)
-                            .Skip((_currPageNumber*22)-22)
-                            .Take(22)
-                            .Select(s => new
-                            {
-                                s.Id,
-                                s.Name,
-                                s.Contact.PhoneNumber,
-                                s.Class,
-                                s.Gender,
-                                s.DateOfBirth,
-                                s.Contact.Email
-                            });
-
-                        dataGridView.DataSource = result.ToList();
-                        dataGridView.ClearSelection();
-                        dataGridView.Columns[5].DefaultCellStyle.Format = "dd/MM/yyyy";
-                        _displayedRecordsNumber -= 22;
-                    }
-                    else if (_currPageNumber == _totalPages)
-                    {
-                        //Count number of records on database
-                        _currPageNumber--;
-                        textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
-                        //Load DataGridView
-                        var result = db.Students
-                            .OrderBy(s => s.Id)
-                            .Skip(db.Students.Count() - (22 - _displayedRecordsNumber + db.Students.Count()) - 22)
-                            .Take(22)
-                            .Select(s => new
-                            {
-                                s.Id,
-                                s.Name,
-                                s.Contact.PhoneNumber,
-                                s.Class,
-                                s.Gender,
-                                s.DateOfBirth,
-                                s.Contact.Email
-                            });
-
-                        dataGridView.DataSource = result.ToList();
-                        dataGridView.ClearSelection();
-                        dataGridView.Columns[5].DefaultCellStyle.Format = "dd/MM/yyyy";
-                        _displayedRecordsNumber -= 22;
-                    }
-                }
+                _currPageNumber--;
+                textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
+                //Load DataGridView
+                LoadDataGridView(StudentsList,(_currPageNumber*_take)-_take,_take);
+                _displayedRecordsNumber -= _take;
             }
-            catch (Exception exception)
+            else if (_currPageNumber == _totalPages)
             {
-                MessageBox.Show(exception.Message);
+                _currPageNumber--;
+                textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
+                //Load DataGridView
+                int skip = _recordNumber
+                           - (_take - _displayedRecordsNumber + _recordNumber) 
+                           -  _take;
+                LoadDataGridView(StudentsList,skip,_take);
+                _displayedRecordsNumber -= _take;
             }
         }
 
         private void buttonLast_Click(object sender, EventArgs e)
         {
-            try
+            if (_currPageNumber < _totalPages)
             {
-                using (KitDataContext db = new KitDataContext())
-                {
-                    if (_currPageNumber < _totalPages)
-                    {
-                        //Count number of records on database
-                        _currPageNumber = _totalPages;
-                        textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
-                        //Load DataGridView
-                        var result = db.Students
-                            .OrderBy(s => s.Id)
-                            .Skip(22*(_totalPages-1))
-                            .Take(22)
-                            .Select(s => new
-                            {
-                                s.Id,
-                                s.Name,
-                                s.Contact.PhoneNumber,
-                                s.Class,
-                                s.Gender,
-                                s.DateOfBirth,
-                                s.Contact.Email
-                            });
-
-                        dataGridView.DataSource = result.ToList();
-                        dataGridView.ClearSelection();
-                        dataGridView.Columns[5].DefaultCellStyle.Format = "dd/MM/yyyy";
-                        _displayedRecordsNumber = 22*_totalPages;
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
+                //Count number of records on database
+                _currPageNumber = _totalPages;
+                textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
+                //Load DataGridView
+                LoadDataGridView(StudentsList,_take*(_totalPages-1),_take);
+                _displayedRecordsNumber = _take*_totalPages;
             }
         }
         private void buttonFirst_Click(object sender, EventArgs e)
         {
-            using(KitDataContext db = new KitDataContext())
-                LoadDataGridView(db);
+            LoadDataGridView(StudentsList,0,_take);
             _currPageNumber = 1;
             textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
-            _displayedRecordsNumber = 22;
+            _displayedRecordsNumber = _take;
         }
         
         #endregion
 
-        #region hidden function
+        #region HiddenFunction
+        
         private void button1_Click(object sender, EventArgs e)
         {
             using (KitDataContext db =new KitDataContext())

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using KIT_Manager_v2;
-using KIT_Manager_v2.UI;
 
-namespace Project_KIT_Manager.UI
+namespace KIT_Manager_v2.UI
 {
     public partial class WelcomeForm : Form
     {

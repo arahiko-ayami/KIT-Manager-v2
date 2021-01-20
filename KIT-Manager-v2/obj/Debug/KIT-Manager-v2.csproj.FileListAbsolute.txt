@@ -18,6 +18,5 @@ D:\C#\KIT-Manager-v2\KIT-Manager-v2\bin\Debug\EntityFramework.xml
 D:\C#\KIT-Manager-v2\KIT-Manager-v2\bin\Debug\EntityFramework.SqlServer.xml
 D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT-Manager-v2.csproj.CopyComplete
 D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.AboutForm.resources
-D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\Project_KIT_Manager.UI.WelcomeForm.resources
 D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.MemberManageForm.resources
-D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.LoadData.resources
+D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.WelcomeForm.resources

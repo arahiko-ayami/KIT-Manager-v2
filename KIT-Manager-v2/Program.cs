@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Project_KIT_Manager.UI;
+using KIT_Manager_v2.UI;
 
 
 namespace KIT_Manager_v2
