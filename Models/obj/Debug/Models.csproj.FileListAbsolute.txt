@@ -1,0 +1,6 @@
+D:\C#\KIT-Manager-v2\Models\bin\Debug\Models.dll
+D:\C#\KIT-Manager-v2\Models\bin\Debug\Models.pdb
+D:\C#\KIT-Manager-v2\Models\obj\Debug\Models.csprojAssemblyReference.cache
+D:\C#\KIT-Manager-v2\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+D:\C#\KIT-Manager-v2\Models\obj\Debug\Models.dll
+D:\C#\KIT-Manager-v2\Models\obj\Debug\Models.pdb
