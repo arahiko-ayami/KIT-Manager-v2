@@ -8,8 +8,6 @@ using System.Windows.Forms;
 using DataAccess;
 using Models;
 
-/*using Models;*/
-
 namespace KIT_Manager_v2.UI
 {
     public partial class MemberManageForm : Form
@@ -42,7 +40,7 @@ namespace KIT_Manager_v2.UI
 
         #region MyCustomMethods
 
-        private void LoadDataGridView(List<Student> StudentsList, int skip, int take)
+        private void LoadDataGridView(int skip, int take)
         {
             var result = 
                 StudentsList
@@ -80,7 +78,7 @@ namespace KIT_Manager_v2.UI
                     textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
                     
                     //Load DataGridView
-                    LoadDataGridView(StudentsList, skip, take);
+                    LoadDataGridView(skip, take);
 
                     //Resize columns
                     ResizeColumn();
@@ -409,7 +407,7 @@ namespace KIT_Manager_v2.UI
             else
             {
                 comboBoxFilterClass.Enabled = false;
-                LoadDataGridView(StudentsList,0,_take);
+                LoadDataGridView(0,_take);
             }
         }
 
@@ -460,7 +458,7 @@ namespace KIT_Manager_v2.UI
                 _currPageNumber++;
                 textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
                 //Load DataGridView
-                LoadDataGridView(StudentsList,_displayedRecordsNumber,_take);
+                LoadDataGridView(_displayedRecordsNumber,_take);
                 _displayedRecordsNumber += _take;
             }
         }
@@ -472,7 +470,7 @@ namespace KIT_Manager_v2.UI
                 _currPageNumber--;
                 textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
                 //Load DataGridView
-                LoadDataGridView(StudentsList,(_currPageNumber*_take)-_take,_take);
+                LoadDataGridView((_currPageNumber*_take)-_take,_take);
                 _displayedRecordsNumber -= _take;
             }
             else if (_currPageNumber == _totalPages)
@@ -483,7 +481,7 @@ namespace KIT_Manager_v2.UI
                 int skip = _recordNumber
                            - (_take - _displayedRecordsNumber + _recordNumber) 
                            -  _take;
-                LoadDataGridView(StudentsList,skip,_take);
+                LoadDataGridView(skip,_take);
                 _displayedRecordsNumber -= _take;
             }
         }
@@ -496,13 +494,13 @@ namespace KIT_Manager_v2.UI
                 _currPageNumber = _totalPages;
                 textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
                 //Load DataGridView
-                LoadDataGridView(StudentsList,_take*(_totalPages-1),_take);
+                LoadDataGridView(_take*(_totalPages-1),_take);
                 _displayedRecordsNumber = _take*_totalPages;
             }
         }
         private void buttonFirst_Click(object sender, EventArgs e)
         {
-            LoadDataGridView(StudentsList,0,_take);
+            LoadDataGridView(0,_take);
             _currPageNumber = 1;
             textBoxPageNum.Text = _currPageNumber + "/" + _totalPages;
             _displayedRecordsNumber = _take;
