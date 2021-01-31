@@ -28,7 +28,14 @@ namespace KIT_Manager_v2.UI
 
         private void quảnLíNhómNghiênCứuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //ProjectManageForm projectManageForm = new ProjectManageForm() {Visible = true};
+            Thread groupManageThread = new Thread(() =>
+            {
+                using (ProjectManageForm projectManageForm = new ProjectManageForm())
+                {
+                    Application.Run(projectManageForm);
+                }
+            }){IsBackground = true};
+            groupManageThread.Start();
         }
 
         private void toolStripButtonAbout_Click(object sender, EventArgs e)

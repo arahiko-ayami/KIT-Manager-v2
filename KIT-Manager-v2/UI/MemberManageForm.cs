@@ -370,7 +370,7 @@ namespace KIT_Manager_v2.UI
         {
             using (KitDataContext db = new KitDataContext())
             {
-                var result = db.Students
+                var result = StudentsList
                     .Where(s => s.Name.Contains(toolStripTxtBoxSearch.Text))
                     .Select(s => new
                 {

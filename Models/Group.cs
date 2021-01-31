@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Models;
 
 namespace DataAccess
@@ -15,6 +16,7 @@ namespace DataAccess
         
         [Display(Name = "Mô Tả Nhóm")]
         public string Description { get; set; }
+
         public virtual ICollection<Student> Students { get; set; }
 
         public Group()

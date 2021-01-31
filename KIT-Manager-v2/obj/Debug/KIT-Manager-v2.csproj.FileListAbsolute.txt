@@ -20,3 +20,5 @@ D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT-Manager-v2.csproj.CopyComplete
 D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.AboutForm.resources
 D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.MemberManageForm.resources
 D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.WelcomeForm.resources
+D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.ProjectManageForm.resources
+D:\C#\KIT-Manager-v2\KIT-Manager-v2\obj\Debug\KIT_Manager_v2.UI.AddMemberToGroup.resources
