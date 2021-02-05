@@ -79,7 +79,7 @@ namespace KIT_Manager_v2.UI
             this.labelFilter.Location = new System.Drawing.Point(12, 37);
             this.labelFilter.Name = "labelFilter";
             this.labelFilter.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.labelFilter.Size = new System.Drawing.Size(346, 27);
+            this.labelFilter.Size = new System.Drawing.Size(314, 27);
             this.labelFilter.TabIndex = 1;
             this.labelFilter.Text = "Lọc Theo";
             // 
@@ -91,7 +91,7 @@ namespace KIT_Manager_v2.UI
             this.labelInfo.Location = new System.Drawing.Point(12, 262);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.labelInfo.Size = new System.Drawing.Size(346, 27);
+            this.labelInfo.Size = new System.Drawing.Size(314, 27);
             this.labelInfo.TabIndex = 2;
             this.labelInfo.Text = "Thông tin";
             // 
@@ -104,7 +104,7 @@ namespace KIT_Manager_v2.UI
             this.toolStripMemberManage.Location = new System.Drawing.Point(0, 0);
             this.toolStripMemberManage.Name = "toolStripMemberManage";
             this.toolStripMemberManage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripMemberManage.Size = new System.Drawing.Size(974, 30);
+            this.toolStripMemberManage.Size = new System.Drawing.Size(947, 30);
             this.toolStripMemberManage.TabIndex = 3;
             // 
             // toolStripButtonRefresh
@@ -169,7 +169,7 @@ namespace KIT_Manager_v2.UI
             this.comboBoxFilterClass.FormattingEnabled = true;
             this.comboBoxFilterClass.Location = new System.Drawing.Point(119, 67);
             this.comboBoxFilterClass.Name = "comboBoxFilterClass";
-            this.comboBoxFilterClass.Size = new System.Drawing.Size(239, 21);
+            this.comboBoxFilterClass.Size = new System.Drawing.Size(207, 21);
             this.comboBoxFilterClass.TabIndex = 1;
             this.comboBoxFilterClass.SelectedValueChanged += new System.EventHandler(this.comboBoxFilterClass_SelectedValueChanged);
             // 
@@ -178,7 +178,7 @@ namespace KIT_Manager_v2.UI
             this.textBoxID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxID.Location = new System.Drawing.Point(119, 292);
             this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(239, 24);
+            this.textBoxID.Size = new System.Drawing.Size(207, 24);
             this.textBoxID.TabIndex = 1;
             // 
             // labelID
@@ -240,7 +240,7 @@ namespace KIT_Manager_v2.UI
             this.textBoxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxName.Location = new System.Drawing.Point(119, 321);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(239, 24);
+            this.textBoxName.Size = new System.Drawing.Size(207, 24);
             this.textBoxName.TabIndex = 2;
             // 
             // textBoxClass
@@ -248,7 +248,7 @@ namespace KIT_Manager_v2.UI
             this.textBoxClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxClass.Location = new System.Drawing.Point(119, 409);
             this.textBoxClass.Name = "textBoxClass";
-            this.textBoxClass.Size = new System.Drawing.Size(239, 24);
+            this.textBoxClass.Size = new System.Drawing.Size(207, 24);
             this.textBoxClass.TabIndex = 6;
             // 
             // labelGender
@@ -263,7 +263,7 @@ namespace KIT_Manager_v2.UI
             // radioBtnMale
             // 
             this.radioBtnMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.radioBtnMale.Location = new System.Drawing.Point(119, 377);
+            this.radioBtnMale.Location = new System.Drawing.Point(119, 381);
             this.radioBtnMale.Name = "radioBtnMale";
             this.radioBtnMale.Size = new System.Drawing.Size(66, 22);
             this.radioBtnMale.TabIndex = 4;
@@ -274,7 +274,7 @@ namespace KIT_Manager_v2.UI
             // radioBtnFemale
             // 
             this.radioBtnFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.radioBtnFemale.Location = new System.Drawing.Point(300, 377);
+            this.radioBtnFemale.Location = new System.Drawing.Point(268, 381);
             this.radioBtnFemale.Name = "radioBtnFemale";
             this.radioBtnFemale.Size = new System.Drawing.Size(58, 22);
             this.radioBtnFemale.TabIndex = 5;
@@ -301,7 +301,7 @@ namespace KIT_Manager_v2.UI
             this.buttonModify.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.buttonModify.Image = ((System.Drawing.Image) (resources.GetObject("buttonModify.Image")));
             this.buttonModify.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonModify.Location = new System.Drawing.Point(154, 520);
+            this.buttonModify.Location = new System.Drawing.Point(129, 520);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(83, 25);
             this.buttonModify.TabIndex = 10;
@@ -315,7 +315,7 @@ namespace KIT_Manager_v2.UI
             this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.buttonDelete.Image = ((System.Drawing.Image) (resources.GetObject("buttonDelete.Image")));
             this.buttonDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonDelete.Location = new System.Drawing.Point(275, 517);
+            this.buttonDelete.Location = new System.Drawing.Point(243, 520);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(83, 25);
             this.buttonDelete.TabIndex = 11;
@@ -326,8 +326,10 @@ namespace KIT_Manager_v2.UI
             // 
             // dataGridView
             // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(364, 37);
+            this.dataGridView.Location = new System.Drawing.Point(332, 37);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -344,7 +346,7 @@ namespace KIT_Manager_v2.UI
             this.textBoxPhoneNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxPhoneNum.Location = new System.Drawing.Point(119, 441);
             this.textBoxPhoneNum.Name = "textBoxPhoneNum";
-            this.textBoxPhoneNum.Size = new System.Drawing.Size(239, 24);
+            this.textBoxPhoneNum.Size = new System.Drawing.Size(207, 24);
             this.textBoxPhoneNum.TabIndex = 7;
             // 
             // textBoxEmail
@@ -352,23 +354,25 @@ namespace KIT_Manager_v2.UI
             this.textBoxEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxEmail.Location = new System.Drawing.Point(119, 471);
             this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(239, 24);
+            this.textBoxEmail.Size = new System.Drawing.Size(207, 24);
             this.textBoxEmail.TabIndex = 8;
             // 
             // dateTimePicker
             // 
             this.dateTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.dateTimePicker.CustomFormat = "dd/MM/yyyy";
             this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker.Location = new System.Drawing.Point(119, 351);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(239, 24);
+            this.dateTimePicker.Size = new System.Drawing.Size(207, 24);
             this.dateTimePicker.TabIndex = 3;
             // 
             // textBoxPageNum
             // 
             this.textBoxPageNum.Enabled = false;
             this.textBoxPageNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.textBoxPageNum.Location = new System.Drawing.Point(609, 552);
+            this.textBoxPageNum.Location = new System.Drawing.Point(589, 550);
             this.textBoxPageNum.Name = "textBoxPageNum";
             this.textBoxPageNum.ReadOnly = true;
             this.textBoxPageNum.Size = new System.Drawing.Size(102, 24);
@@ -381,7 +385,7 @@ namespace KIT_Manager_v2.UI
             this.buttonPrevious.BackgroundImage = ((System.Drawing.Image) (resources.GetObject("buttonPrevious.BackgroundImage")));
             this.buttonPrevious.FlatAppearance.BorderSize = 0;
             this.buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPrevious.Location = new System.Drawing.Point(579, 551);
+            this.buttonPrevious.Location = new System.Drawing.Point(559, 549);
             this.buttonPrevious.Name = "buttonPrevious";
             this.buttonPrevious.Size = new System.Drawing.Size(24, 24);
             this.buttonPrevious.TabIndex = 24;
@@ -394,7 +398,7 @@ namespace KIT_Manager_v2.UI
             this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonNext.FlatAppearance.BorderSize = 0;
             this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNext.Location = new System.Drawing.Point(717, 552);
+            this.buttonNext.Location = new System.Drawing.Point(697, 550);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(24, 24);
             this.buttonNext.TabIndex = 25;
@@ -406,7 +410,7 @@ namespace KIT_Manager_v2.UI
             this.buttonLast.BackgroundImage = ((System.Drawing.Image) (resources.GetObject("buttonLast.BackgroundImage")));
             this.buttonLast.FlatAppearance.BorderSize = 0;
             this.buttonLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLast.Location = new System.Drawing.Point(747, 551);
+            this.buttonLast.Location = new System.Drawing.Point(727, 549);
             this.buttonLast.Name = "buttonLast";
             this.buttonLast.Size = new System.Drawing.Size(24, 24);
             this.buttonLast.TabIndex = 26;
@@ -418,7 +422,7 @@ namespace KIT_Manager_v2.UI
             this.buttonFirst.BackgroundImage = ((System.Drawing.Image) (resources.GetObject("buttonFirst.BackgroundImage")));
             this.buttonFirst.FlatAppearance.BorderSize = 0;
             this.buttonFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonFirst.Location = new System.Drawing.Point(549, 551);
+            this.buttonFirst.Location = new System.Drawing.Point(529, 549);
             this.buttonFirst.Name = "buttonFirst";
             this.buttonFirst.Size = new System.Drawing.Size(24, 24);
             this.buttonFirst.TabIndex = 27;
@@ -430,7 +434,7 @@ namespace KIT_Manager_v2.UI
             this.labelQty.AutoSize = true;
             this.labelQty.Enabled = false;
             this.labelQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.labelQty.Location = new System.Drawing.Point(822, 557);
+            this.labelQty.Location = new System.Drawing.Point(790, 555);
             this.labelQty.Name = "labelQty";
             this.labelQty.Size = new System.Drawing.Size(147, 13);
             this.labelQty.TabIndex = 28;
@@ -441,7 +445,7 @@ namespace KIT_Manager_v2.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(974, 584);
+            this.ClientSize = new System.Drawing.Size(947, 584);
             this.Controls.Add(this.labelQty);
             this.Controls.Add(this.buttonFirst);
             this.Controls.Add(this.buttonLast);

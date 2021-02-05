@@ -12,3 +12,13 @@ D:\C#\KIT-Manager-v2\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.ca
 D:\C#\KIT-Manager-v2\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
 D:\C#\KIT-Manager-v2\DataAccess\obj\Debug\DataAccess.dll
 D:\C#\KIT-Manager-v2\DataAccess\obj\Debug\DataAccess.pdb
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\BCrypt.Net-Next.dll
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Buffers.dll
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Memory.dll
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\BCrypt.Net-Next.xml
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Buffers.xml
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Memory.xml
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+D:\C#\KIT-Manager-v2\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

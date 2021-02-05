@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.Entity;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAccess;
 using Models;
@@ -17,7 +11,7 @@ namespace KIT_Manager_v2.UI
     public partial class AddMemberToGroup : Form
     {
         #region Variables
-
+        
         private readonly string _windowName = Program.ApplicationName;
         private List<Student> StudentsList;
         private List<Student> StudentsInGroupList;
@@ -29,9 +23,9 @@ namespace KIT_Manager_v2.UI
         public AddMemberToGroup(int groupId)
         {
             InitializeComponent();
-            this.Name = _windowName;
             this._groupId = groupId;
             LoadData();
+            this.Text= Program.ApplicationName + " - Quản Lí Thành Viên Nhóm";
             //Disable Buttons
             buttonAdd.Enabled = false;
             buttonRemove.Enabled = false;

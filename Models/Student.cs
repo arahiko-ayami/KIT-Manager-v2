@@ -14,6 +14,8 @@ namespace Models
         public string Class { get; set; }
         
         public ICollection<Group> Groups { get; set; }
+        
+        public virtual User User { get; set; }
 
         public Student()
         {

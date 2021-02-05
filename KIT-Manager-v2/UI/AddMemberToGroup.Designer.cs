@@ -123,6 +123,7 @@ namespace KIT_Manager_v2.UI
             this.Controls.Add(this.textBoxSearchFromDb);
             this.Controls.Add(this.dataGridViewStudentInGroup);
             this.Controls.Add(this.dataGridViewStudentOnDb);
+            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.Name = "AddMemberToGroup";
             this.Text = "AddMemberToGroup";
             ((System.ComponentModel.ISupportInitialize) (this.dataGridViewStudentOnDb)).EndInit();

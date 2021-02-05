@@ -198,6 +198,8 @@ namespace KIT_Manager_v2.UI
                 {
                     using (KitDataContext db = new KitDataContext())
                     {
+                        var pepper = "CsUd9KpJVD";
+                        var salt = BCrypt.Net.BCrypt.GenerateSalt();
                         Student newMember = new Student()
                         {
                             Id = textBoxID.Text,
@@ -209,6 +211,12 @@ namespace KIT_Manager_v2.UI
                             {
                                 PhoneNumber = textBoxPhoneNum.Text,
                                 Email = textBoxEmail.Text
+                            },
+                            User = new User()
+                            {
+                                Password = BCrypt.Net.BCrypt.HashPassword(pepper + dateTimePicker.Value.Date, salt),
+                                Salt = salt,
+                                Priority = Priority.User
                             }
                         };
 
@@ -230,17 +238,11 @@ namespace KIT_Manager_v2.UI
             {
                 using (KitDataContext db = new KitDataContext())
                 {
-                    var result =
-                        from s in db.Students
-                        where s.Id == id
-                        select s;
+                    var result = db.Students.FirstOrDefault(s => s.Id.Equals(id));
+                    var user = db.Users.FirstOrDefault(s => s.Id.Equals(id));
 
-                    var deleteItems = result.ToList();
-
-                    foreach (var deleteItem in deleteItems)
-                    {
-                        db.Students.Remove(deleteItem);
-                    }
+                    db.Users.Remove(user);
+                    db.Students.Remove(result);
 
                     db.SaveChanges();
                 }
@@ -351,13 +353,13 @@ namespace KIT_Manager_v2.UI
                         id = row.Cells[0].Value.ToString();
                     }
                     Delete(id);
-                    MessageBox.Show("Xoá thành công!", Program.ApplicationName);
-                    LoadData(0,_take);
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
                 }
+                MessageBox.Show("Xoá thành công!", Program.ApplicationName);
+                LoadData(0, _take);
             }
         }
 
@@ -371,7 +373,7 @@ namespace KIT_Manager_v2.UI
             using (KitDataContext db = new KitDataContext())
             {
                 var result = StudentsList
-                    .Where(s => s.Name.Contains(toolStripTxtBoxSearch.Text))
+                    .Where(s => s.Name.ToLower().Contains(toolStripTxtBoxSearch.Text.ToLower()))
                     .Select(s => new
                 {
                     s.Id,
